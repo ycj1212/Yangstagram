@@ -18,9 +18,12 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         setContentView(R.layout.activity_main)
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-            .setOnNavigationItemSelectedListener(this)
+        bottomNavigationView.setOnNavigationItemSelectedListener(this)
 
         ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1)
+
+        // set default screen
+        bottomNavigationView.selectedItemId = R.id.action_home
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
