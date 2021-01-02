@@ -6,6 +6,10 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.yangstagram.navigation.*
@@ -28,6 +32,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        setToolbarDefault()
+
         when (item.itemId) {
             R.id.action_home -> {
                 val detailViewFragment = DetailViewFragment()
@@ -62,5 +68,11 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             }
         }
         return false
+    }
+
+    fun setToolbarDefault() {
+        findViewById<TextView>(R.id.toolbar_username).visibility = View.GONE
+        findViewById<Button>(R.id.toolbar_btn_back).visibility = View.GONE
+        findViewById<ImageView>(R.id.toolbar_title_image).visibility = View.VISIBLE
     }
 }
