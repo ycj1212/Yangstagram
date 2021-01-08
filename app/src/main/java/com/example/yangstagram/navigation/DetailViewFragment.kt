@@ -1,5 +1,6 @@
 package com.example.yangstagram.navigation
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -95,6 +96,7 @@ class DetailViewFragment : Fragment() {
                 viewholder.findViewById<ImageView>(R.id.detailviewitem_favorite_imageview).setImageResource(R.drawable.ic_favorite_border)
             }
 
+            // This code is when the profile image is clicked
             viewholder.findViewById<ImageView>(R.id.detailviewitem_profile_image).setOnClickListener {
                 var fragment = UserFragment()
                 var bundle = Bundle()
@@ -102,6 +104,11 @@ class DetailViewFragment : Fragment() {
                 bundle.putString("userId", contentDTOs[position].userId)
                 fragment.arguments = bundle
                 activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.main_content, fragment)?.commit()
+            }
+            viewholder.findViewById<ImageView>(R.id.detailviewitem_comment_imageview).setOnClickListener {
+                val intent = Intent(it.context, CommentActivity::class.java)
+                intent.putExtra("contentUid", contentUidList[position])
+                startActivity(intent)
             }
         }
 
