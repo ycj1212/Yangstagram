@@ -13,18 +13,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.yangstagram.R
+import com.example.yangstagram.navigation.model.AlarmDTO
 import com.example.yangstagram.navigation.model.ContentDTO
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class CommentActivity : AppCompatActivity() {
     var contentUid: String? = null
+    var destinationUid: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comment)
 
         contentUid = intent.getStringExtra("contentUid")
+        destinationUid = intent.getStringExtra("destinationUid")
 
         findViewById<Button>(R.id.comment_btn_send).setOnClickListener {
             var comment = ContentDTO.Comment()
@@ -35,6 +38,8 @@ class CommentActivity : AppCompatActivity() {
 
             FirebaseFirestore.getInstance().collection("images").document(contentUid!!).collection("comments").document().set(comment)
 
+            commentAlarm(destinationUid!!, findViewById<EditText>(R.id.comment_edit_message).text.toString())
+
             findViewById<EditText>(R.id.comment_edit_message).setText("")
         }
 
@@ -42,6 +47,16 @@ class CommentActivity : AppCompatActivity() {
             adapter = CommentRecyclerviewAdapter()
             layoutManager = LinearLayoutManager(this@CommentActivity)
         }
+    }
+
+    fun commentAlarm(destinationUid: String, message: String) {
+        val alarmDTO = AlarmDTO()
+        alarmDTO.destinationUid = destinationUid
+        alarmDTO.userId = FirebaseAuth.getInstance().currentUser?.email
+        alarmDTO.uid = FirebaseAuth.getInstance().currentUser?.uid
+        alarmDTO.message = message
+        alarmDTO.timestamp = System.currentTimeMillis()
+        FirebaseFirestore.getInstance().collection("alarms").document().set(alarmDTO)
     }
 
     inner class CommentRecyclerviewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
