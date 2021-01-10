@@ -22,6 +22,7 @@ import com.example.yangstagram.R
 import com.example.yangstagram.navigation.model.AlarmDTO
 import com.example.yangstagram.navigation.model.ContentDTO
 import com.example.yangstagram.navigation.model.FollowDTO
+import com.example.yangstagram.navigation.util.FcmPush
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -175,6 +176,9 @@ class UserFragment : Fragment() {
         alarmDTO.kind = 2
         alarmDTO.timestamp = System.currentTimeMillis()
         FirebaseFirestore.getInstance().collection("alarms").document().set(alarmDTO)
+
+        val message = auth.currentUser?.email + getString(R.string.alarm_follow)
+        FcmPush.instance.sendMessage(destinationUid, "Yangstagram", message)
     }
 
     fun getProfileImage() {
