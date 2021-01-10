@@ -15,6 +15,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.yangstagram.R
 import com.example.yangstagram.navigation.model.AlarmDTO
 import com.example.yangstagram.navigation.model.ContentDTO
+import com.example.yangstagram.navigation.util.FcmPush
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -58,6 +59,9 @@ class CommentActivity : AppCompatActivity() {
         alarmDTO.message = message
         alarmDTO.timestamp = System.currentTimeMillis()
         FirebaseFirestore.getInstance().collection("alarms").document().set(alarmDTO)
+
+        val msg = FirebaseAuth.getInstance().currentUser?.email + " " + getString(R.string.alarm_comment) + " of " + message
+        FcmPush.instance.sendMessage(destinationUid, "Yangstagram", msg)
     }
 
     inner class CommentRecyclerviewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
