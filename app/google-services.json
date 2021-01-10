@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "104513445523",
+    "project_id": "yangstagram-bbb20",
+    "storage_bucket": "yangstagram-bbb20.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:104513445523:android:0966f5d756e10a450df766",
+        "android_client_info": {
+          "package_name": "com.example.yangstagram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "104513445523-pi11mb8flapp89906njakptchvh58mq7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOZs4Bq4A9kIXeLMvqhYmWAdUunALx_mU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "104513445523-pi11mb8flapp89906njakptchvh58mq7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
